@@ -16,8 +16,7 @@ class ViewController: UIViewController {
     // 0:赤, 1:青, 2:黄
     var colorNumber = 0
     
-    
-    // このswitch文のメソッドを作成したやつ
+    // 背景色やラベルを変えるメソッド
     fileprivate func changeBgColor() {
         switch colorNumber {
         case 0:
@@ -38,23 +37,53 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UserDefaultsを取得
+        let userDefaults = UserDefaults.standard
         
+        // 前回設定された番号を、変数colorNumberに入れる
+        colorNumber = userDefaults.integer(forKey: "colorNum")
         
+        changeBgColor()
         
+
         
-        // 画面全体の背景色を変更
-        view.backgroundColor = .brown
     }
+
 
     @IBAction func didClickButton(_ sender: UIButton) {
         
-        // 変数colorNumberの値を１プラスする
-        colorNumber += 1
-        
-        // 画面の背景色や、ラベルの文字を変更
-        changeBgColor()
-        // 今の変数colorNumberの値をUserDefaultに保存する
-    }
-    
-}
+        // 変数colorNumberの値を1プラスする
+                // colorNumber = colorNumber + 1
+                
+                if colorNumber > 3 {
+                    colorNumber = 0
+                } else {
+                    colorNumber += 1
+                }
+                
+                // 画面の背景色や、ラベルの文字を変更
+                changeBgColor()
+                
+                // 今の変数colorNumberの値をUserDefaultsのに保存する
+                
+                        // 1.UserDefaultを取得
+                        // 2. 取得したUserDefaultsの中に変数colorNumberを保存する
+                        let userDefaults = UserDefaults.standard
+                       
+                       // userDefaults.set(保存する値, forKey: "取り出す時の名前")
+                        userDefaults.set(colorNumber, forKey: "colorNum")
+                        
+                        // 以下のコードは後で消す。　保存できたか確認用
+                     //   let savedNumber = userDefaults.integer(forKey: "colorNum")
+                        
+                        // それ以外の場合は取り出す値の型に合わせて命令が違う
+                //        userDefaults.string(forKey: "")
+                //        userDefaults.float(forKey: "")
+                //        userDefaults.bool(forKey: "")
+                      //  print(savedNumber)
+                
+            }
+            
+            
+        }
 
